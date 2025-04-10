@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin tức bóng đá - MindX News</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+        
+        /* Category badge - moved to right side and added blinking animation */
+        .news-category {
+            position: absolute;
+            top: 15px;
+            right: 15px; /* Changed from left to right */
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            z-index: 2;
+            animation: blink 1s infinite; /* Added blinking animation */
+        }
+        
+        /* Define the blinking animation */
+        @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+        
+        .category-international {
+            background-color: #2196F3;
+        }
+        
+        .category-domestic {
+            background-color: #4CAF50;
+        }
+        
+        .category-transfer {
+            background-color: #FF9800;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-content h3 {
+            margin-top: 0;
+            font-size: 18px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .news-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #777;
+        }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #f44336;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #d32f2f;
+        }
+        
+        /* Theme toggle styles */
+        .theme-toggles {
+            display: flex !important;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .theme-toggles a {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: transparent;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggles a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        #light-mode-btn {
+            color: #FF9800;
+        }
+        
+        #dark-mode-btn {
+            color: #2196F3;
+        }
+        
+        /* Login button styles */
+        .login-button {
+            margin-left: auto;
+        }
+        
+        .login-button a {
+            background-color: #f44336;
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-button a:hover {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .login-button a {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .login-button a:hover {
+            background-color: #b71c1c;
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode #main-header {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode #main-nav a {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .news-card {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .news-content h3 {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .news-meta {
+            color: #aaa;
+        }
+        
+        body.dark-mode footer {
+            background-color: #1e1e1e;
+        }
+        
+        body.dark-mode .logo-text .mind-text,
+        body.dark-mode .logo-text .news-text {
+            color: white;
+        }
+        
+        /* Logo text default styling */
+        .logo-text .mind-text,
+        .logo-text .news-text {
+            color: black;
+            transition: color 0.3s ease;
+        }
+        
+        /* Dropdown menu styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .dropdown-toggle i {
+            vertical-align: middle;
+        }
+        
+        /* Dịch biểu tượng mũi tên hướng xuống sang phải */
+        .dropdown-toggle .fa-caret-down {
+            margin-left: 2px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 160px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+        }
+        
+        .dropdown-menu a {
+            display: block !important;
+            padding: 8px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .dropdown-menu a.active {
+            background-color: #e0e0e0;
+            font-weight: 600;
+        }
+        
+        /* Dark mode for dropdown */
+        body.dark-mode .dropdown-menu {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .dropdown-menu a {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .dropdown-menu a:hover {
+            background-color: #333;
+        }
+        
+        body.dark-mode .dropdown-menu a.active {
+            background-color: #444;
+        }
+        
+        @media (max-width: 992px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Weather and Calendar Container */
+        .weather-calendar-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        body.dark-mode .weather-calendar-container {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+        }
+        
+        /* Weather widget styles */
+        .weather-widget {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .weather-widget {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .weather-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .weather-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            color: #FF9800;
+        }
+        
+        .weather-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .weather-temp {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .weather-description {
+            font-size: 1rem;
+            color: #666;
+            text-transform: capitalize;
+        }
+        
+        body.dark-mode .weather-description {
+            color: #aaa;
+        }
+        
+        .weather-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        body.dark-mode .weather-details {
+            border-top: 1px solid #444;
+        }
+        
+        .weather-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .weather-detail-icon {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #2196F3;
+        }
+        
+        .weather-detail-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .weather-detail-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        body.dark-mode .weather-detail-label {
+            color: #bbb;
+        }
+        
+        /* City select dropdown styles */
+        .weather-city-select {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        body.dark-mode .weather-city-select {
+            border-top: 1px solid #444;
+        }
+        
+        .weather-city-select label {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        body.dark-mode .weather-city-select label {
+            color: #ccc;
+        }
+        
+        .city-dropdown {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .city-dropdown:focus {
+            border-color: #2196F3;
+        }
+        
+        body.dark-mode .city-dropdown {
+            background-color: #333;
+            border-color: #555;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .city-dropdown:focus {
+            border-color: #2196F3;
+        }
+        
+        /* Calendar styles */
+        .calendar-widget {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .calendar-widget {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-nav-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .calendar-nav-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        body.dark-mode .calendar-nav-btn {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .calendar-nav-btn:hover {
+            background-color: #555;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        body.dark-mode .calendar-weekdays {
+            color: #aaa;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .calendar-day:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .calendar-day.current {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .calendar-day.other-month {
+            color: #ccc;
+        }
+        
+        body.dark-mode .calendar-day:hover {
+            background-color: #444;
+        }
+        
+        body.dark-mode .calendar-day.other-month {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1 class="logo-text"><span class="mind-text">Mind</span><span style="color: red;">X</span> <span class="news-text">News</span></h1>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="news.html" class="active">Tin tức</a></li>
+                    <li><a href="#">Lịch thi đấu</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-globe"></i> <i class="fas fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-lang="vi" class="language-option active">Tiếng Việt</a></li>
+                            <li><a href="#" data-lang="en" class="language-option">English</a></li>
+                        </ul>
+                    </li>
+                    <li class="theme-toggles">
+                        <a href="#" id="light-mode-btn"><i class="fas fa-sun"></i></a>
+                        <a href="#" id="dark-mode-btn"><i class="fas fa-moon"></i></a>
+                    </li>
+                    <li class="login-button"><a href="authenticate/signin.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                </ul>
+            </nav>
+            <div class="toggle-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Weather and Calendar Section -->
+            <div class="weather-calendar-container">
+                <!-- Weather Widget -->
+                <div class="weather-widget">
+                    <div class="weather-header">
+                        <div class="weather-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div class="weather-info">
+                            <div class="weather-temp">--°C</div>
+                            <div class="weather-description">Đang tải...</div>
+                            <div class="weather-location">--</div>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <div class="weather-detail-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="weather-detail-value">-- km/h</div>
+                            <div class="weather-detail-label">Gió</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="weather-detail-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="weather-detail-value">--%</div>
+                            <div class="weather-detail-label">Độ ẩm</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="weather-detail-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="weather-detail-value">--%</div>
+                            <div class="weather-detail-label">Mây</div>
+                        </div>
+                    </div>
+                    <div class="weather-city-select">
+                        <label for="city-select">Chọn thành phố:</label>
+                        <select id="city-select" class="city-dropdown">
+                            <option value="Bắc Ninh">Bắc Ninh</option>
+                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            <option value="Huế">Huế</option>
+                            <option value="Nha Trang">Nha Trang</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Calendar Widget -->
+                <div class="calendar-widget">
+                    <div class="calendar-header">
+                        <div class="calendar-title">Tháng 4, 2025</div>
+                        <div class="calendar-nav">
+                            <button class="calendar-nav-btn" id="prev-month-btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="calendar-nav-btn" id="next-month-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="calendar-weekdays">
+                        <div>CN</div>
+                        <div>T2</div>
+                        <div>T3</div>
+                        <div>T4</div>
+                        <div>T5</div>
+                        <div>T6</div>
+                        <div>T7</div>
+                    </div>
+                    <div class="calendar-days" id="calendar-days">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <section class="news-section">
+                <h2>Tin tức bóng đá mới nhất</h2>
+                <div class="news-grid">
+                    <!-- Bài 1 - World Cup 2026 -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-international">Bóng đá quốc tế</span>
+                            <img src="assets/images/stadium.jpg" alt="Đội tuyển Việt Nam">
+                        </div>
+                        <div class="news-content">
+                            <h3>Đội tuyển Việt Nam sẵn sàng cho vòng loại World Cup 2026</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 15/01/2025</span>
+                                <span><i class="far fa-user"></i> Nguyễn Văn A</span>
+                            </div>
+                            <p>Đội tuyển Việt Nam hoàn tất công tác chuẩn bị cho chiến dịch vòng loại World Cup 2026...</p>
+                            <a href="news/article4.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 2 - Champions League -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-international">Bóng đá quốc tế</span>
+                            <img src="assets/images/stadium.jpg" alt="Champions League">
+                        </div>
+                        <div class="news-content">
+                            <h3>Champions League 2025: Cuộc đua nghẹt thở vào vòng bán kết</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 10/04/2025</span>
+                                <span><i class="far fa-user"></i> Trần Văn B</span>
+                            </div>
+                            <p>Mùa giải Champions League 2024-2025 đang bước vào giai đoạn gay cấn nhất...</p>
+                            <a href="news/article5.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 3 - Premier League -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="Premier League">
+                        </div>
+                        <div class="news-content">
+                            <h3>Premier League 2024-2025: Cuộc đua vô địch căng thẳng</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 20/03/2025</span>
+                                <span><i class="far fa-user"></i> Lê Thị C</span>
+                            </div>
+                            <p>Cuộc đua vô địch Premier League đang diễn ra vô cùng gay cấn...</p>
+                            <a href="news/article6.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 4 - La Liga -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="La Liga">
+                        </div>
+                        <div class="news-content">
+                            <h3>La Liga 2024-2025: Real Madrid tiến gần đến ngôi vương</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 25/03/2025</span>
+                                <span><i class="far fa-user"></i> Phạm Văn D</span>
+                            </div>
+                            <p>Real Madrid đang cho thấy phong độ ấn tượng tại La Liga...</p>
+                            <a href="news/article7.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 5 - Serie A -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="Serie A">
+                        </div>
+                        <div class="news-content">
+                            <h3>Serie A 2024-2025: Inter Milan thống trị giải đấu</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 28/03/2025</span>
+                                <span><i class="far fa-user"></i> Hoàng Văn E</span>
+                            </div>
+                            <p>Inter Milan đang thể hiện phong độ vô cùng ấn tượng tại Serie A...</p>
+                            <a href="news/article8.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 6 - Bundesliga -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="Bundesliga">
+                        </div>
+                        <div class="news-content">
+                            <h3>Bundesliga 2024-2025: Cuộc chiến nảy lửa</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 30/03/2025</span>
+                                <span><i class="far fa-user"></i> Nguyễn Thị F</span>
+                            </div>
+                            <p>Cuộc đua song mã giữa Bayern Munich và Bayer Leverkusen...</p>
+                            <a href="news/article9.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 7 - Tin chuyển nhượng -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-transfer">Chuyển nhượng</span>
+                            <img src="assets/images/news2.jpg" alt="Chuyển nhượng">
+                        </div>
+                        <div class="news-content">
+                            <h3>Thị trường chuyển nhượng Hè 2025 sôi động</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 01/04/2025</span>
+                                <span><i class="far fa-user"></i> Trần Thị G</span>
+                            </div>
+                            <p>Các CLB lớn đang chuẩn bị cho kỳ chuyển nhượng Hè 2025...</p>
+                            <a href="news/article1.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 8 - Cầu thủ xuất sắc -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/news2.jpg" alt="Cầu thủ xuất sắc">
+                        </div>
+                        <div class="news-content">
+                            <h3>Top 10 cầu thủ xuất sắc nhất năm 2025</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 05/04/2025</span>
+                                <span><i class="far fa-user"></i> Lê Văn H</span>
+                            </div>
+                            <p>Danh sách 10 cầu thủ xuất sắc nhất năm 2025...</p>
+                            <a href="news/article2.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 9 - Giải đấu mới -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-international">Bóng đá quốc tế</span>
+                            <img src="assets/images/news3.jpg" alt="Giải đấu mới">
+                        </div>
+                        <div class="news-content">
+                            <h3>FIFA công bố format mới cho Club World Cup 2025</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 08/04/2025</span>
+                                <span><i class="far fa-user"></i> Phạm Thị I</span>
+                            </div>
+                            <p>FIFA chính thức công bố thể thức mới cho Club World Cup...</p>
+                            <a href="news/article3.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MindX News</h2>
+                    <p>Cập nhật tin tức bóng đá mới nhất, nhanh nhất và chính xác nhất từ các giải đấu hàng đầu trong nước và quốc tế.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="news.html">Tin tức</a></li>
+                        <li><a href="#">Lịch thi đấu</a></li>
+                        <li><a href="#">Giải đấu</a></li>
+                        <li><a href="authenticate/signin.html">Sign In</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 25 Nguyễn Gia Thiều, Bắc Ninh</p>
+                    <p><i class="fas fa-envelope"></i> info@mindxnews.com</p>
+                    <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                    <div class="social-icons">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Đăng ký nhận tin</h3>
+                    <p>Đăng ký để nhận những tin tức bóng đá mới nhất và các ưu đãi đặc biệt từ MindX News.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Email của bạn">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MindX News. Tất cả quyền được bảo lưu. | Thiết kế bởi <a href="#">MindX Team</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/translations.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeBtn = document.getElementById('dark-mode-btn');
+            const lightModeBtn = document.getElementById('light-mode-btn');
+            
+            // Check if dark mode is already enabled (from localStorage)
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Dark mode button click event
+            darkModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            });
+            
+            // Light mode button click event
+            lightModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            });
+
+            // Language dropdown functionality
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            // Toggle dropdown menu
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+            
+            // Language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get selected language
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    // Update active class
+                    languageOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Store selected language in localStorage
+                    setLanguage(selectedLang);
+                    
+                    // Apply translations based on selected language
+                    applyTranslations(selectedLang);
+                    
+                    // Close dropdown
+                    dropdownMenu.classList.remove('show');
+                });
+            });
+
+            // Weather API functionality
+            function fetchWeather(cityName = 'Bắc Ninh') {
+                const weatherTemp = document.querySelector('.weather-temp');
+                const weatherDesc = document.querySelector('.weather-description');
+                const weatherLocation = document.querySelector('.weather-location');
+                const weatherIcon = document.querySelector('.weather-icon i');
+                const windValue = document.querySelector('.weather-detail:nth-child(1) .weather-detail-value');
+                const humidityValue = document.querySelector('.weather-detail:nth-child(2) .weather-detail-value');
+                const cloudValue = document.querySelector('.weather-detail:nth-child(3) .weather-detail-value');
+                const citySelect = document.getElementById('city-select');
+                
+                // Sử dụng fallbackWeatherData từ api.js
+                const fallbackWeatherData = {
+                    'Bắc Ninh': { temp: 28, condition: 'Nắng nhẹ', humidity: 75, wind: 12 },
+                    'Hồ Chí Minh': { temp: 32, condition: 'Nắng nóng', humidity: 70, wind: 8 },
+                    'Đà Nẵng': { temp: 30, condition: 'Có mây', humidity: 65, wind: 15 },
+                    'Huế': { temp: 29, condition: 'Mưa nhẹ', humidity: 80, wind: 10 },
+                    'Nha Trang': { temp: 31, condition: 'Nắng', humidity: 68, wind: 14 }
+                };
+                
+                // Đảm bảo thành phố được chọn có trong danh sách
+                if (!fallbackWeatherData[cityName]) {
+                    cityName = 'Bắc Ninh'; // Mặc định là Bắc Ninh nếu không tìm thấy thành phố
+                }
+                
+                // Đặt giá trị cho dropdown
+                citySelect.value = cityName;
+                
+                // Lấy dữ liệu thời tiết cho thành phố được chọn
+                const weatherData = fallbackWeatherData[cityName];
+                
+                // Cập nhật thông tin thời tiết
+                weatherTemp.textContent = `${weatherData.temp}°C`;
+                weatherDesc.textContent = weatherData.condition;
+                weatherLocation.textContent = cityName;
+                windValue.textContent = `${weatherData.wind} km/h`;
+                humidityValue.textContent = `${weatherData.humidity}%`;
+                cloudValue.textContent = `${Math.round(Math.random() * 30 + 10)}%`; // Tạo phần trăm mây ngẫu nhiên từ 10-40%
+                
+                // Cập nhật icon thời tiết dựa trên điều kiện
+                let iconClass = 'fa-cloud-sun'; // Mặc định
+                
+                if (weatherData.condition.includes('Nắng')) {
+                    iconClass = 'fa-sun';
+                } else if (weatherData.condition.includes('Mây')) {
+                    iconClass = 'fa-cloud';
+                } else if (weatherData.condition.includes('Mưa')) {
+                    iconClass = 'fa-cloud-rain';
+                } else if (weatherData.condition.includes('Giông')) {
+                    iconClass = 'fa-bolt';
+                } else if (weatherData.condition.includes('Sương')) {
+                    iconClass = 'fa-smog';
+                }
+                
+                weatherIcon.className = `fas ${iconClass}`;
+            }
+            
+            // Initialize weather data (mặc định là Bắc Ninh)
+            fetchWeather('Bắc Ninh');
+            
+            // Xử lý sự kiện khi người dùng thay đổi thành phố
+            document.getElementById('city-select').addEventListener('change', function() {
+                fetchWeather(this.value);
+            });
+            
+            // Refresh weather data every 30 minutes
+            setInterval(function() {
+                fetchWeather(document.getElementById('city-select').value);
+            }, 30 * 60 * 1000);
+            
+            // Calendar functionality
+            function initCalendar() {
+                const calendarDaysContainer = document.getElementById('calendar-days');
+                const calendarTitle = document.querySelector('.calendar-title');
+                const prevMonthBtn = document.getElementById('prev-month-btn');
+                const nextMonthBtn = document.getElementById('next-month-btn');
+                
+                let currentDate = new Date();
+                let currentMonth = currentDate.getMonth();
+                let currentYear = currentDate.getFullYear();
+                
+                // Function to update calendar
+                function updateCalendar() {
+                    // Clear calendar days
+                    calendarDaysContainer.innerHTML = '';
+                    
+                    // Update calendar title
+                    const lang = getCurrentLanguage();
+                    const monthNames = {
+                        vi: [
+                            'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 
+                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                        ],
+                        en: [
+                            'January', 'February', 'March', 'April', 'May', 'June', 
+                            'July', 'August', 'September', 'October', 'November', 'December'
+                        ]
+                    };
+                    
+                    calendarTitle.textContent = `${monthNames[lang][currentMonth]}, ${currentYear}`;
+                    
+                    // Get first day of the month
+                    const firstDay = new Date(currentYear, currentMonth, 1);
+                    
+                    // Get last day of the month
+                    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+                    
+                    // Get number of days in the month
+                    const daysInMonth = lastDay.getDate();
+                    
+                    // Get day of the week of the first day (0 = Sunday, 1 = Monday, etc.)
+                    let firstDayIndex = firstDay.getDay();
+                    
+                    // Get last day of previous month
+                    const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+                    
+                    // Get number of days to display from previous month
+                    let prevDays = firstDayIndex;
+                    
+                    // Get number of days to display from next month
+                    const totalCells = 42; // 6 rows x 7 columns
+                    let nextDays = totalCells - daysInMonth - prevDays;
+                    
+                    // Generate calendar days
+                    // Previous month days
+                    for (let i = prevDays; i > 0; i--) {
+                        const day = document.createElement('div');
+                        day.classList.add('calendar-day', 'other-month');
+                        day.textContent = prevMonthLastDay - i + 1;
+                        calendarDaysContainer.appendChild(day);
+                    }
+                    
+                    // Current month days
+                    const today = new Date();
+                    for (let i = 1; i <= daysInMonth; i++) {
+                        const day = document.createElement('div');
+                        day.classList.add('calendar-day');
+                        day.textContent = i;
+                        
+                        // Highlight current day
+                        if (
+                            i === today.getDate() && 
+                            currentMonth === today.getMonth() && 
+                            currentYear === today.getFullYear()
+                        ) {
+                            day.classList.add('current');
+                        }
+                        
+                        calendarDaysContainer.appendChild(day);
+                    }
+                    
+                    // Next month days
+                    for (let i = 1; i <= nextDays; i++) {
+                        const day = document.createElement('div');
+                        day.classList.add('calendar-day', 'other-month');
+                        day.textContent = i;
+                        calendarDaysContainer.appendChild(day);
+                    }
+                }
+                
+                // Update calendar on load
+                updateCalendar();
+                
+                // Previous month button click event
+                prevMonthBtn.addEventListener('click', function() {
+                    currentMonth--;
+                    if (currentMonth < 0) {
+                        currentMonth = 11;
+                        currentYear--;
+                    }
+                    updateCalendar();
+                });
+                
+                // Next month button click event
+                nextMonthBtn.addEventListener('click', function() {
+                    currentMonth++;
+                    if (currentMonth > 11) {
+                        currentMonth = 0;
+                        currentYear++;
+                    }
+                    updateCalendar();
+                });
+                
+                // Update calendar when language changes
+                document.addEventListener('languageChanged', function() {
+                    updateCalendar();
+                });
+            }
+            
+            // Initialize calendar
+            initCalendar();
+        });
+    </script>
+</body>
+</html>
