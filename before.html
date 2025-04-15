@@ -7,7 +7,146 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS cho overlay và thông báo đăng nhập -->
     <style>
+        /* CSS cho overlay và thông báo đăng nhập */
+        .content-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-message {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            z-index: 1001;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-message h2 {
+            color: #f44336;
+            margin-bottom: 15px;
+        }
+        
+        .login-message p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .login-btn {
+            display: inline-block;
+            background-color: #f44336;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .content-overlay {
+            background-color: rgba(18, 18, 18, 0.7);
+        }
+        
+        body.dark-mode .login-message {
+            background-color: #1e1e1e;
+        }
+        
+        body.dark-mode .login-message h2 {
+            color: #f44336;
+        }
+        
+        body.dark-mode .login-message p {
+            color: #f0f0f0;
+        }
+        
+        /* Làm mờ nội dung chính */
+        body.blurred main,
+        body.blurred header,
+        body.blurred footer {
+            filter: blur(3px);
+            pointer-events: none;
+            user-select: none;
+            opacity: 0.4; /* Làm mờ khoảng 60% */
+        }
+        
+        /* Style cho nút đăng nhập */
+        .login-button a {
+            background-color: #f44336;
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-button a:hover {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .login-button a {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .login-button a:hover {
+            background-color: #b71c1c;
+        }
+        
+        /* Style cho icon */
+        .login-message i {
+            font-size: 48px;
+            color: #f44336;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        body.dark-mode .login-message i {
+            color: #f44336;
+        }
+        
+        /* Style cho nút đóng */
+        .close-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #555;
+            cursor: pointer;
+        }
+        
+        body.dark-mode .close-overlay {
+            color: #f0f0f0;
+        }
+        
+        .close-overlay:hover {
+            color: #f44336;
+        }
+        
+        /* Style cho nút đăng nhập */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -570,7 +709,7 @@
         }
     </style>
 </head>
-<body>
+<body class="blurred">
     <header id="main-header">
         <div class="container">
             <div class="logo">
@@ -870,10 +1009,8 @@
                     <p><i class="fas fa-phone"></i> +84 123 456 789</p>
                     <div class="social-icons">
                         <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
                         <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="footer-newsletter">
@@ -891,7 +1028,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/translations.js"></script>
     <script>
@@ -1164,6 +1301,30 @@
             // Initialize calendar
             initCalendar();
         });
+    </script> -->
+    <!-- Overlay và thông báo đăng nhập -->
+    <div class="content-overlay" id="loginOverlay">
+        <div class="login-message">
+            <button class="close-overlay" onclick="closeOverlay()">×</button>
+            <i class="fas fa-lock"></i>
+            <h2>Nội dung bị giới hạn</h2>
+            <p>Để xem đầy đủ nội dung và sử dụng tất cả các tính năng, vui lòng đăng nhập vào tài khoản của bạn.</p>
+            <a href="authenticate/signin.html" class="login-btn">Đăng nhập ngay</a>
+        </div>
+    </div>
+
+    <script>
+        // Hiển thị overlay khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('blurred');
+            document.getElementById('loginOverlay').style.display = 'flex';
+        });
+
+        // Hàm đóng overlay (chỉ để demo, thực tế sẽ chuyển đến trang đăng nhập)
+        function closeOverlay() {
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.body.classList.remove('blurred');
+        }
     </script>
 </body>
 </html>
