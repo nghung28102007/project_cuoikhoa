@@ -8,12 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js" rel="stylesheet">
+    <style>
+        /* Logo text styling */
+        .logo-text .mind-text,
+        .logo-text .news-text {
+            color: black;
+            transition: color 0.3s ease;
+        }
+        
+        body.dark-mode .logo-text .mind-text,
+        body.dark-mode .logo-text .news-text {
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <header id="main-header">
         <div class="container">
             <div class="logo">
-                <h1>MindX News</h1>
+                <h1 class="logo-text"><span class="mind-text">Mind</span><span style="color: red;">X</span> <span class="news-text">News</span></h1>
             </div>
             <nav id="main-nav">
                 <ul>

@@ -7,7 +7,7 @@ const translations = {
         news: 'Tin tức',
         schedule: 'Lịch thi đấu',
         // comments: 'Bình luận',
-        login: 'Đăng nhập',
+        // login: 'Đăng nhập',
         language: '',
         darkMode: 'Chế độ tối',
         lightMode: 'Chế độ sáng',
@@ -58,7 +58,7 @@ const translations = {
         news: 'News',
         schedule: 'Match Schedule',
         // comments: 'Comments',
-        login: 'Sign In',
+        // login: 'Sign In',
         language: '',
         darkMode: 'Dark Mode',
         lightMode: 'Light Mode',
@@ -110,7 +110,7 @@ const translations = {
             vi: {
                 title: 'Trận đấu nổi bật: Việt Nam vs Thái Lan',
                 meta: {
-                    date: '15/06/2023',
+                    date: '15/06/2025',
                     author: 'Nguyễn Văn A'
                 },
                 content: [
@@ -126,7 +126,7 @@ const translations = {
             en: {
                 title: 'Featured Match: Vietnam vs Thailand',
                 meta: {
-                    date: '06/15/2023',
+                    date: '06/15/2025',
                     author: 'Nguyen Van A'
                 },
                 content: [
