@@ -170,7 +170,7 @@ const translations = {
                     author: 'Tran Van B'
                 },
                 content: [  
-                    'Midfielder Nguyen Quang Hai has been voted Player of the Month for May after an impressive series of matches in V-League 2023. This is the second consecutive time the 1997-born player has received this honor.',
+                    'Midfielder Nguyen Quang Hai has been voted Player of the Month for May after an impressive series of matches in V-League 2025. This is the second consecutive time the 1997-born player has received this honor.',
                     'In May, Quang Hai scored 3 goals and provided 4 assists, playing a crucial role in helping his club secure 4 consecutive victories. The midfielder\'s excellent performance has been highly appreciated by experts and fans.',
                     'According to statistics, Quang Hai created 15 scoring opportunities in 5 matches, with a passing accuracy of up to 87%. He is also the player who covered the most distance in the team with an average of 11.2 km per match.',
                     '"I am very happy and honored to receive this award. This is the result of continuous training efforts and support from teammates and coaching staff. I will continue to strive to maintain my form and help the team achieve its goals this season," Quang Hai shared after receiving the award.',
@@ -184,37 +184,37 @@ const translations = {
         // Article 3
         article3: {
             vi: {
-                title: 'V-League 2023: Những thay đổi quan trọng',
+                // title: 'V-League 2025: Những thay đổi quan trọng',
                 meta: {
-                    date: '05/06/2023',
+                    date: '05/06/2025',
                     author: 'Lê Thị C'
                 },
                 content: [
-                    'V-League 2023 sẽ có nhiều thay đổi quan trọng về thể thức thi đấu và quy định chuyển nhượng. Những điều chỉnh này nhằm nâng cao chất lượng giải đấu và phát triển bóng đá Việt Nam.',
-                    'Theo thông báo từ VPF (Công ty Cổ phần Bóng đá Chuyên nghiệp Việt Nam), V-League 2023 sẽ áp dụng thể thức thi đấu mới với hai giai đoạn. Giai đoạn 1 sẽ thi đấu vòng tròn một lượt để xác định thứ hạng. Sau đó, giải sẽ chia thành hai nhóm: nhóm tranh chức vô địch (6 đội đứng đầu) và nhóm trụ hạng (8 đội còn lại).',
+                    'V-League 2025 sẽ có nhiều thay đổi quan trọng về thể thức thi đấu và quy định chuyển nhượng. Những điều chỉnh này nhằm nâng cao chất lượng giải đấu và phát triển bóng đá Việt Nam.',
+                    'Theo thông báo từ VPF (Công ty Cổ phần Bóng đá Chuyên nghiệp Việt Nam), V-League 2025 sẽ áp dụng thể thức thi đấu mới với hai giai đoạn. Giai đoạn 1 sẽ thi đấu vòng tròn một lượt để xác định thứ hạng. Sau đó, giải sẽ chia thành hai nhóm: nhóm tranh chức vô địch (6 đội đứng đầu) và nhóm trụ hạng (8 đội còn lại).',
                     'Ở giai đoạn 2, các đội trong mỗi nhóm sẽ thi đấu vòng tròn hai lượt để xác định thứ hạng cuối cùng. Điểm số và hiệu số bàn thắng từ giai đoạn 1 sẽ được giữ nguyên khi bước vào giai đoạn 2.',
-                    'V-League 2023 cũng sẽ có những thay đổi trong quy định chuyển nhượng. Mỗi đội được đăng ký tối đa 3 cầu thủ nước ngoài và 1 cầu thủ gốc Việt. Đặc biệt, các câu lạc bộ có thể thực hiện chuyển nhượng giữa mùa giải trong khoảng thởi gian từ ngày 1/6 đến 30/6/2023.',
+                    'V-League 2025 cũng sẽ có những thay đổi trong quy định chuyển nhượng. Mỗi đội được đăng ký tối đa 3 cầu thủ nước ngoài và 1 cầu thủ gốc Việt. Đặc biệt, các câu lạc bộ có thể thực hiện chuyển nhượng giữa mùa giải trong khoảng thởi gian từ ngày 1/6 đến 30/6/2025.',
                     'Ngoài ra, các đội bóng cũng được phép đăng ký bổ sung cầu thủ U21 không giới hạn, miễn là những cầu thủ này đã tham gia giải U21 quốc gia. Điều này nhằm khuyến khích các câu lạc bộ đầu tư và phát triển cầu thủ trẻ.',
-                    'V-League 2023 dự kiến sẽ khởi tranh vào tháng 2 và kết thúc vào tháng 9. Với thể thức mới, mỗi đội sẽ phải thi đấu ít nhất 24 trận trong mùa giải. Điều này đòi hỏi các câu lạc bộ phải có chiến lược hợp lý về lực lượng và thể lực cho cầu thủ.',
+                    'V-League 2025 dự kiến sẽ khởi tranh vào tháng 2 và kết thúc vào tháng 9. Với thể thức mới, mỗi đội sẽ phải thi đấu ít nhất 24 trận trong mùa giải. Điều này đòi hỏi các câu lạc bộ phải có chiến lược hợp lý về lực lượng và thể lực cho cầu thủ.',
                     'Lịch thi đấu cũng được sắp xếp để tránh trùng với các đợt tập trung của đội tuyển quốc gia. Các trận đấu sẽ diễn ra chủ yếu vào cuối tuần, với một số trận đấu được tổ chức vào các ngày trong tuần.',
-                    'Một trong những vấn đề được quan tâm trong V-League 2023 là chất lượng trọng tài. VFF (Liên đoàn Bóng đá Việt Nam) đã có kế hoạch mời trọng tài nước ngoài điều khiển các trận đấu quan trọng. Đồng thời, công nghệ VAR (Video Assistant Referee) cũng sẽ được thử nghiệm tại một số trận đấu.'
+                    'Một trong những vấn đề được quan tâm trong V-League 2025 là chất lượng trọng tài. VFF (Liên đoàn Bóng đá Việt Nam) đã có kế hoạch mời trọng tài nước ngoài điều khiển các trận đấu quan trọng. Đồng thời, công nghệ VAR (Video Assistant Referee) cũng sẽ được thử nghiệm tại một số trận đấu.'
                 ]
             },
             en: {
-                title: 'V-League 2023: Important Changes',
+                title: 'V-League 2025: Important Changes',
                 meta: {
-                    date: '06/05/2023',
+                    date: '06/05/2025',
                     author: 'Le Thi C'
                 },
                 content: [
-                    'V-League 2023 will have many important changes in competition format and transfer regulations. These adjustments aim to improve the quality of the tournament and develop Vietnamese football.',
-                    'According to the announcement from VPF (Vietnam Professional Football Joint Stock Company), V-League 2023 will apply a new competition format with two phases. Phase 1 will be a single round-robin to determine rankings. Then, the tournament will be divided into two groups: championship group (top 6 teams) and relegation group (remaining 8 teams).',
+                    'V-League 2025 will have many important changes in competition format and transfer regulations. These adjustments aim to improve the quality of the tournament and develop Vietnamese football.',
+                    'According to the announcement from VPF (Vietnam Professional Football Joint Stock Company), V-League 2025 will apply a new competition format with two phases. Phase 1 will be a single round-robin to determine rankings. Then, the tournament will be divided into two groups: championship group (top 6 teams) and relegation group (remaining 8 teams).',
                     'In phase 2, teams in each group will play a double round-robin to determine the final rankings. Points and goal difference from phase 1 will be maintained when entering phase 2.',
-                    'V-League 2023 will also have changes in transfer regulations. Each team can register a maximum of 3 foreign players and 1 Vietnamese-origin player. In particular, clubs can make mid-season transfers during the period from June 1 to June 30, 2023.',
+                    'V-League 2025 will also have changes in transfer regulations. Each team can register a maximum of 3 foreign players and 1 Vietnamese-origin player. In particular, clubs can make mid-season transfers during the period from June 1 to June 30, 2025.',
                     'In addition, teams are also allowed to register unlimited U21 players, as long as these players have participated in the national U21 tournament. This aims to encourage clubs to invest in and develop young players.',
-                    'V-League 2023 is expected to start in February and end in September. With the new format, each team will have to play at least 24 matches in the season. This requires clubs to have a reasonable strategy regarding manpower and physical fitness for players.',
+                    'V-League 2025 is expected to start in February and end in September. With the new format, each team will have to play at least 24 matches in the season. This requires clubs to have a reasonable strategy regarding manpower and physical fitness for players.',
                     'The match schedule is also arranged to avoid overlapping with national team gatherings. Matches will take place mainly on weekends, with some matches organized on weekdays.',
-                    'One of the concerns in V-League 2023 is the quality of referees. VFF (Vietnam Football Federation) has plans to invite foreign referees to officiate important matches. At the same time, VAR (Video Assistant Referee) technology will also be tested in some matches.'
+                    'One of the concerns in V-League 2025 is the quality of referees. VFF (Vietnam Football Federation) has plans to invite foreign referees to officiate important matches. At the same time, VAR (Video Assistant Referee) technology will also be tested in some matches.'
                 ]
             }
         },
@@ -315,85 +315,85 @@ const translations = {
         card1: {
             vi: {
                 title: 'Trận đấu nổi bật: Việt Nam vs Thái Lan',
-                date: '15/04/2023',
+                date: '15/04/2025',
                 author: 'Nguyễn Văn A',
                 excerpt: 'Đội tuyển Việt Nam sẽ đối đầu với Thái Lan trong trận cầu được mong đợi nhất vòng loại World Cup 2026 khu vực châu Á.'
             },
             en: {
                 title: 'Featured Match: Vietnam vs Thailand',
-                date: '04/15/2023',
+                date: '04/15/2025',
                 author: 'Nguyen Van A',
                 excerpt: 'Vietnam national team will face Thailand in the most anticipated match of the World Cup 2026 qualification round in the Asian region.'
             }
         },
         card2: {
             vi: {
-                title: 'Quang Hải được vinh danh Cầu thủ xuất sắc nhất tháng',
-                date: '10/05/2023',
+                title: 'Champions League 2025: Cuộc đua nghẹt thở vào vòng bán kết',
+                date: '10/05/2025',
                 author: 'Trần Văn B',
-                excerpt: 'Tiền vệ Nguyễn Quang Hải đã được bầu chọn là Cầu thủ xuất sắc nhất tháng 5 sau chuỗi trận ấn tượng.'
+                excerpt: 'Mùa giải Champions League 2024-2025 đang bước vào giai đoạn gay cấn nhất với các trận tứ kết. Manchester City, Real Madrid, Bayern Munich và Inter Milan đang là những ứng cử viên hàng đầu cho chức vô địch năm nay.'
             },
             en: {
-                title: 'Quang Hai Named Player of the Month',
-                date: '05/10/2023',
+                title: 'Champions League 2025: Breathtaking race to the semi-finals',
+                date: '05/10/2025',
                 author: 'Tran Van B',
-                excerpt: 'Midfielder Nguyen Quang Hai has been voted as Player of the Month for May after an impressive string of performances.'
+                excerpt: 'The 2024-2025 Champions League season is entering its most exciting phase with the quarter-finals. Manchester City, Real Madrid, Bayern Munich and Inter Milan are the leading candidates for this year championship.'
             }
         },
         card3: {
             vi: {
-                title: 'V-League 2023: Những thay đổi quan trọng',
-                date: '05/06/2023',
+                title: 'Premier League 2024-2025: Cuộc đua vô địch căng thẳng',
+                date: '05/06/2025',
                 author: 'Lê Thị C',
-                excerpt: 'V-League 2023 sẽ có nhiều thay đổi quan trọng về thể thức thi đấu và quy định chuyển nhượng.'
+                excerpt: 'Khi mùa giải Premier League 2024-2025 bước vào giai đoạn cuối, cuộc đua vô địch đang diễn ra vô cùng gay cấn với sự cạnh tranh quyết liệt giữa các đội đầu bảng.'
             },
             en: {
-                title: 'V-League 2023: Important Changes',
-                date: '06/05/2023',
+                title: 'Premier League 2024-2025: Tense championship race',
+                date: '06/05/2025',
                 author: 'Le Thi C',
-                excerpt: 'V-League 2023 will undergo significant changes in competition format and transfer regulations.'
+                excerpt: 'As the 2024-2025 Premier League season enters its final stages, the championship race is getting intense with fierce competition between the top teams.'
             }
         },
         card4: {
             vi: {
-                title: 'Đội tuyển nữ Việt Nam chuẩn bị cho World Cup 2023',
-                date: '01/05/2023',
+                title: 'La Liga 2024-2025: Real Madrid tiến gần đến ngôi vương',
+                date: '01/05/2025',
                 author: 'Phạm Thu D',
-                excerpt: 'Đội tuyển nữ Việt Nam đang tích cực chuẩn bị cho World Cup nữ 2023...'
+                excerpt: 'Real Madrid đang cho thấy phong độ ấn tượng tại La Liga 2024-2025, với việc dẫn đầu bảng xếp hạng và khoảng cách an toàn trước các đối thủ cạnh tranh.'
             },
             en: {
-                title: 'Vietnam Women\'s Team Prepares for 2023 World Cup',
-                date: '05/01/2023',
+                title: 'La Liga 2024-2025: Real Madrid close to the throne',
+                date: '05/01/2025',
                 author: 'Pham Thu D',
-                excerpt: 'Vietnam\'s women\'s national team is actively preparing for the 2023 Women\'s World Cup...'
+                excerpt: 'Real Madrid are showing impressive form in La Liga 2024-2025, leading the rankings and keeping a safe distance from their competitors.'
             }
         },
         card5: {
             vi: {
-                title: 'Thị trường chuyển nhượng Hè 2023 sôi động',
-                date: '01/06/2023',
+                title: 'Serie A 2024-2025: Inter Milan thống trị',
+                date: '01/06/2025',
                 author: 'Trần Thị G',
-                excerpt: 'Các CLB lớn đang chuẩn bị cho kỳ chuyển nhượng Hè 2023 với nhiều thương vụ đáng chú ý...'
+                excerpt: 'Inter Milan đang thể hiện phong độ vô cùng ấn tượng tại Serie A 2024-2025, với việc dẫn đầu bảng xếp hạng một cách thuyết phục và đang trên đường hướng tới chức vô địch.'
             },
             en: {
-                title: 'Active Summer 2023 Transfer Market',
-                date: '06/01/2023',
+                title: 'Serie A 2024-2025: Inter Milan dominate',
+                date: '06/01/2025',
                 author: 'Tran Thi G',
-                excerpt: 'Major clubs are preparing for the Summer 2023 transfer window with many notable deals...'
+                excerpt: 'Inter Milan are showing extremely impressive form in Serie A 2024-2025, with a convincing lead in the rankings and on the way to the championship.'
             }
         },
         card6: {
             vi: {
-                title: 'Hà Nội FC bổ nhiệm HLV mới cho mùa giải 2023-2024',
-                date: '10/06/2023',
+                title: 'Bundesliga 2024-2025: Cuộc chiến nảy lửa giữa Bayern Munich và Bayer Leverkusen',
+                date: '10/06/2025',
                 author: 'Lê Văn H',
-                excerpt: 'Hà Nội FC vừa chính thức bổ nhiệm huấn luyện viên mới cho mùa giải sắp tới...'
+                excerpt: 'Bundesliga 2024-2025 đang chứng kiến một trong những mùa giải hấp dẫn nhất lịch sử với cuộc đua song mã giữa Bayern Munich và Bayer Leverkusen.'
             },
             en: {
-                title: 'Hanoi FC Appoints New Coach for 2023-2024 Season',
-                date: '06/10/2023',
+                title: 'Bundesliga 2024-2025: Fierce battle between Bayern Munich and Bayer Leverkusen',
+                date: '06/10/2025',
                 author: 'Le Van H',
-                excerpt: 'Hanoi FC has officially appointed a new coach for the upcoming season...'
+                excerpt: 'Bundesliga 2024-2025 đang chứng kiến một trong những mùa giải hấp dẫn nhất lịch sử với cuộc đua song mã giữa Bayern Munich và Bayer Leverkusen.'
             }
         }
     }
