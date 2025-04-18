@@ -82,8 +82,7 @@
                         </ul>
                     </li>
                     <li class="theme-toggles">
-                        <a href="#" id="light-mode-btn"><i class="fas fa-sun"></i></a>
-                        <a href="#" id="dark-mode-btn"><i class="fas fa-moon"></i></a>
+                        <a href="#" id="theme-toggle-btn"><i class="fas fa-moon"></i></a>
                     </li>
                 </ul>
             </nav>
@@ -247,50 +246,57 @@
     <script>
         // Theme toggle and language switching functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Dark mode functionality
-            const darkModeBtn = document.getElementById('dark-mode-btn');
-            const lightModeBtn = document.getElementById('light-mode-btn');
+            // Theme toggle functionality
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
             const logoText = document.querySelector('.logo h1');
             const mindText = logoText.childNodes[0]; // "Mind" text
             const newsText = logoText.childNodes[2]; // "News" text
             
-            // Check if dark mode is already enabled (from localStorage)
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                // Make logo text white in dark mode
-                if (logoText) {
-                    mindText.nodeValue = 'Mind';
-                    mindText.parentNode.setAttribute('style', 'color: white;');
-                    newsText.nodeValue = ' News';
+            // Function to update theme toggle icon
+            function updateThemeIcon(isDarkMode) {
+                if (themeToggleBtn) {
+                    if (isDarkMode) {
+                        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                    } else {
+                        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                    }
                 }
             }
             
-            // Dark mode button click event
-            darkModeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-                
-                // Update logo color to white
+            // Function to update logo colors
+            function updateLogoColors(isDarkMode) {
                 if (logoText) {
-                    mindText.nodeValue = 'Mind';
-                    mindText.parentNode.setAttribute('style', 'color: white;');
-                    newsText.nodeValue = ' News';
+                    if (isDarkMode) {
+                        mindText.nodeValue = 'Mind';
+                        mindText.parentNode.setAttribute('style', 'color: white;');
+                        newsText.nodeValue = ' News';
+                    } else {
+                        mindText.nodeValue = 'Mind';
+                        mindText.parentNode.setAttribute('style', 'color: black;');
+                        newsText.nodeValue = ' News';
+                    }
                 }
-            });
+            }
             
-            // Light mode button click event
-            lightModeBtn.addEventListener('click', function(e) {
+            // Check if dark mode is already enabled (from localStorage)
+            const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                updateLogoColors(true);
+                updateThemeIcon(true);
+            }
+            
+            // Theme toggle button click event
+            themeToggleBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
+                const isDarkMode = document.body.classList.toggle('dark-mode');
                 
-                // Reset logo color to black
-                if (logoText) {
-                    mindText.nodeValue = 'Mind';
-                    mindText.parentNode.setAttribute('style', 'color: black;');
-                    newsText.nodeValue = ' News';
-                }
+                // Save preference to localStorage
+                localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+                
+                // Update logo colors and theme icon
+                updateLogoColors(isDarkMode);
+                updateThemeIcon(isDarkMode);
             });
 
             // Language dropdown functionality
@@ -770,6 +776,16 @@
             body.dark-mode #back-to-top {
                 background-color: #333;
                 color: #fff;
+            }
+            
+            /* Theme toggle button */
+            #theme-toggle-btn {
+                color: #2196F3;
+                transition: color 0.3s ease;
+            }
+            
+            body.dark-mode #theme-toggle-btn {
+                color: #FF9800;
             }
         `;
         document.head.appendChild(style);
