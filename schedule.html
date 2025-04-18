@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch thi đấu bóng đá - MindX News</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Logo text styling */
+        .logo-text .mind-text,
+        .logo-text .news-text {
+            color: black;
+            transition: color 0.3s ease;
+        }
+        
+        body.dark-mode .logo-text .mind-text,
+        body.dark-mode .logo-text .news-text {
+            color: white;
+        }
+
+        /* Lịch thi đấu styles */
+        .schedule-container {
+            margin: 30px 0;
+        }
+
+        .schedule-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .schedule-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+            background-color: #f0f0f0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .schedule-tab.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .schedule-tab:hover:not(.active) {
+            background-color: #e0e0e0;
+        }
+
+        .schedule-content {
+            display: none;
+        }
+
+        .schedule-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .match-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .match-date {
+            flex: 0 0 100px;
+            text-align: center;
+            padding-right: 15px;
+            border-right: 1px solid #eee;
+        }
+
+        .match-day {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .match-time {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .match-teams {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+        }
+
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+
+        .team-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .match-score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20%;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .match-venue {
+            flex: 0 0 150px;
+            text-align: center;
+            padding-left: 15px;
+            border-left: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .match-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .status-upcoming {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .status-live {
+            background-color: #e74c3c;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-finished {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode .schedule-tab {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .schedule-tab.active {
+            background-color: #e74c3c;
+        }
+
+        body.dark-mode .schedule-tab:hover:not(.active) {
+            background-color: #3a3a3a;
+        }
+
+        body.dark-mode .match-card {
+            background-color: #2a2a2a;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        body.dark-mode .match-day {
+            color: #e74c3c;
+        }
+
+        body.dark-mode .match-time,
+        body.dark-mode .match-venue,
+        body.dark-mode .team-name {
+            color: #ccc;
+        }
+
+        body.dark-mode .status-upcoming {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .match-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .match-date {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 0 0 10px 0;
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            .match-teams {
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .match-venue {
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding: 10px 0 0 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1 class="logo-text"><span class="mind-text">Mind</span><span style="color: red;">X</span> <span class="news-text">News</span></h1>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="news.html">Tin tức</a></li>
+                    <li><a href="schedule.html" class="active">Lịch thi đấu</a></li>
+                    <!-- <li><a href="authenticate/signin.html">Đăng nhập</a></li> -->
+                    <li class="dropdown">
+                        <!-- <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-globe"></i> Ngôn ngữ <i class="fas fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-lang="vi" class="language-option active">Tiếng Việt</a></li>
+                            <li><a href="#" data-lang="en" class="language-option">English</a></li>
+                        </ul> -->
+                    </li>
+                    <li class="theme-toggles">
+                        <a href="#" id="light-mode-btn"><i class="fas fa-sun"></i></a>
+                        <a href="#" id="dark-mode-btn"><i class="fas fa-moon"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="toggle-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">Lịch thi đấu bóng đá</h1>
+            
+            <div class="schedule-container">
+                <div class="schedule-tabs">
+                    <div class="schedule-tab active" data-tab="vleague">V-League</div>
+                    <div class="schedule-tab" data-tab="premier-league">Premier League</div>
+                    <div class="schedule-tab" data-tab="laliga">La Liga</div>
+                    <div class="schedule-tab" data-tab="bundesliga">Bundesliga</div>
+                    <div class="schedule-tab" data-tab="seriea">Serie A</div>
+                    <div class="schedule-tab" data-tab="champions-league">Champions League</div>
+                    <div class="schedule-tab" data-tab="world-cup">World Cup</div>
+                </div>
+                
+                <div class="schedule-content active" id="vleague">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">15/04/2025</div>
+                            <div class="match-time">19:00</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/v-league.png.webp" alt="Hà Nội FC" class="team-logo">
+                                <div class="team-name">Hà Nội FC</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/v-league.png.webp" alt="Hoàng Anh Gia Lai" class="team-logo">
+                                <div class="team-name">Hoàng Anh Gia Lai</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Sân Hàng Đẫy</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                    
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">16/04/2025</div>
+                            <div class="match-time">18:00</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/v-league.png.webp" alt="Viettel FC" class="team-logo">
+                                <div class="team-name">Viettel FC</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/v-league.png.webp" alt="Thanh Hóa" class="team-logo">
+                                <div class="team-name">Thanh Hóa</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Sân Hàng Đẫy</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                    
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">17/04/2025</div>
+                            <div class="match-time">19:15</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/v-league.png.webp" alt="Hồng Lĩnh Hà Tĩnh" class="team-logo">
+                                <div class="team-name">Hồng Lĩnh Hà Tĩnh</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/v-league.png.webp" alt="Becamex Bình Dương" class="team-logo">
+                                <div class="team-name">Becamex Bình Dương</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Sân Hà Tĩnh</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content" id="premier-league">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">17/04/2025</div>
+                            <div class="match-time">21:00</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/epl.jpg" alt="Manchester United" class="team-logo">
+                                <div class="team-name">Manchester United</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/epl.jpg" alt="Liverpool" class="team-logo">
+                                <div class="team-name">Liverpool</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Old Trafford</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                    
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">18/04/2025</div>
+                            <div class="match-time">22:30</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/epl.jpg" alt="Arsenal" class="team-logo">
+                                <div class="team-name">Arsenal</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/epl.jpg" alt="Chelsea" class="team-logo">
+                                <div class="team-name">Chelsea</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Emirates Stadium</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content" id="laliga">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">16/04/2025</div>
+                            <div class="match-time">02:00</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/laliga.jpg" alt="Barcelona" class="team-logo">
+                                <div class="team-name">Barcelona</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/laliga.jpg" alt="Real Madrid" class="team-logo">
+                                <div class="team-name">Real Madrid</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Camp Nou</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content" id="bundesliga">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">17/04/2025</div>
+                            <div class="match-time">20:30</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/bundesliga.jpg" alt="Bayern Munich" class="team-logo">
+                                <div class="team-name">Bayern Munich</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/bundesliga.jpg" alt="Borussia Dortmund" class="team-logo">
+                                <div class="team-name">Borussia Dortmund</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Allianz Arena</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content" id="seriea">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">18/04/2025</div>
+                            <div class="match-time">01:45</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/inter.jpg" alt="Inter Milan" class="team-logo">
+                                <div class="team-name">Inter Milan</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/inter.jpg" alt="AC Milan" class="team-logo">
+                                <div class="team-name">AC Milan</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>San Siro</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content" id="champions-league">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">20/04/2025</div>
+                            <div class="match-time">02:00</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/ucl.png" alt="Manchester City" class="team-logo">
+                                <div class="team-name">Manchester City</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/ucl.png" alt="PSG" class="team-logo">
+                                <div class="team-name">PSG</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Etihad Stadium</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content" id="world-cup">
+                    <div class="match-card">
+                        <div class="match-date">
+                            <div class="match-day">15/04/2025</div>
+                            <div class="match-time">19:00</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="assets/images/vnthailan.webp" alt="Việt Nam" class="team-logo">
+                                <div class="team-name">Việt Nam</div>
+                            </div>
+                            <div class="match-score">VS</div>
+                            <div class="team">
+                                <img src="assets/images/vnthailan.webp" alt="Thái Lan" class="team-logo">
+                                <div class="team-name">Thái Lan</div>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <div>Mỹ Đình</div>
+                            <div class="match-status status-upcoming">Sắp diễn ra</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MindX News</h2>
+                    <p>Tin tức bóng đá hàng đầu Việt Nam</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="news.html">Tin tức</a></li>
+                        <li><a href="schedule.html">Lịch thi đấu</a></li>
+                        <li><a href="#">Bình luận</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Liên hệ</h3>
+                    <p><i class="fas fa-envelope"></i> info@mindxnews.com</p>
+                    <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MindX News. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" title="Về đầu trang"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/translations.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.schedule-tab');
+            const contents = document.querySelectorAll('.schedule-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Dark mode functionality
+            const darkModeBtn = document.getElementById('dark-mode-btn');
+            const lightModeBtn = document.getElementById('light-mode-btn');
+            
+            // Check if dark mode is already enabled (from localStorage)
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Dark mode button click event
+            darkModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            });
+            
+            // Light mode button click event
+            lightModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            });
+
+            // Language dropdown functionality
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            // Toggle dropdown menu
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+            
+            // Language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get selected language
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    // Update active class
+                    languageOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Store selected language in localStorage
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                    
+                    // Apply translations based on selected language
+                    if (typeof applyTranslations === 'function') {
+                        applyTranslations(selectedLang);
+                    }
+                    
+                    // Close dropdown
+                    dropdownMenu.classList.remove('show');
+                });
+            });
+
+            // Mobile menu toggle
+            const toggleMenu = document.querySelector('.toggle-menu');
+            const mainNav = document.getElementById('main-nav');
+            
+            toggleMenu.addEventListener('click', function() {
+                mainNav.classList.toggle('show');
+            });
+
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // ScrollReveal animations
+            if (typeof ScrollReveal !== 'undefined') {
+                ScrollReveal().reveal('.match-card', {
+                    delay: 200,
+                    distance: '20px',
+                    origin: 'bottom',
+                    interval: 100
+                });
+            }
+        });
+    </script>
+</body>
+</html>
