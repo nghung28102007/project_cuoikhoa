@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+
+    .login-button {
+        margin-left: 50px; /* Đẩy nút Sign Out sang bên phải */
+    }
+
+    .login-button a {
+        background-color: #f44336;
+        color: white !important;
+        padding: 8px 15px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .login-button a:hover {
+        background-color: #d32f2f;
+    }
         /* Logo text styling */
         .logo-text .mind-text,
         .logo-text .news-text {
@@ -177,6 +194,20 @@
         }
 
         /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode #main-header {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode #main-nav a {
+            color: #f0f0f0;
+        }
+
         body.dark-mode .schedule-tab {
             background-color: #2a2a2a;
             color: #f0f0f0;
@@ -192,7 +223,7 @@
 
         body.dark-mode .match-card {
             background-color: #2a2a2a;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         body.dark-mode .match-day {
@@ -208,6 +239,15 @@
         body.dark-mode .status-upcoming {
             background-color: #3a3a3a;
             color: #f0f0f0;
+        }
+
+        body.dark-mode footer {
+            background-color: #1e1e1e;
+        }
+
+        body.dark-mode .logo-text .mind-text,
+        body.dark-mode .logo-text .news-text {
+            color: white;
         }
 
         /* Responsive styles */
@@ -251,6 +291,7 @@
                     <li><a href="index.html">Trang chủ</a></li>
                     <li><a href="news.html">Tin tức</a></li>
                     <li><a href="schedule.html" class="active">Lịch thi đấu</a></li>
+                    <div class="login-button"><a href="/before.html" style="text-decoration: none; margin-right: -px;" ><i class="fas fa-sign-in-alt"></i> Sign Out</a></div>
                     <!-- <li><a href="authenticate/signin.html">Đăng nhập</a></li> -->
                     <li class="dropdown">
                         <!-- <a href="#" class="dropdown-toggle">
@@ -528,7 +569,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h2>MindX News</h2>
+                    <h1 style="color: black;">Mind<span style="color: red;">X</span> News</h1>
                     <p>Tin tức bóng đá hàng đầu Việt Nam</p>
                 </div>
                 <div class="footer-links">
@@ -537,7 +578,6 @@
                         <li><a href="index.html">Trang chủ</a></li>
                         <li><a href="news.html">Tin tức</a></li>
                         <li><a href="schedule.html">Lịch thi đấu</a></li>
-                        <li><a href="#">Bình luận</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -566,6 +606,34 @@
     <script src="js/translations.js"></script>
     <script src="js/api.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+            // Kiểm tra nếu Dark Mode đã được bật (từ localStorage)
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                if (themeToggleBtn) {
+                    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            }
+
+            // Xử lý sự kiện khi nhấn nút chuyển đổi
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.body.classList.toggle('dark-mode');
+
+                    if (document.body.classList.contains('dark-mode')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                    }
+                });
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             // Tab switching functionality
             const tabs = document.querySelectorAll('.schedule-tab');

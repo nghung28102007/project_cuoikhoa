@@ -6,12 +6,7 @@ const translations = {
         home: 'Trang chủ',
         news: 'Tin tức',
         schedule: 'Lịch thi đấu',
-        // comments: 'Bình luận',
-        // login: 'Đăng nhập',
         language: '',
-        darkMode: 'Chế độ tối',
-        lightMode: 'Chế độ sáng',
-        logOut: 'Đăng xuất',
         
         // Common UI elements
         newsHeading: 'Tin tức bóng đá mới nhất',
@@ -19,7 +14,6 @@ const translations = {
         commentSection: 'Bình luận',
         writeComment: 'Viết bình luận của bạn...',
         sendComment: 'Gửi',
-        backToTop: 'Về đầu trang',
         quickLinks: 'Liên kết nhanh',
         contact: 'Liên hệ',
         copyright: 'Tất cả quyền được bảo lưu.',
@@ -57,13 +51,7 @@ const translations = {
         home: 'Home',
         news: 'News',
         schedule: 'Match Schedule',
-        // comments: 'Comments',
-        // login: 'Sign In',
         language: '',
-        darkMode: 'Dark Mode',
-        lightMode: 'Light Mode',
-        logOut: 'Log out',
-        
         // Common UI elements
         newsHeading: 'Latest Football News',
         readMore: 'Read more',

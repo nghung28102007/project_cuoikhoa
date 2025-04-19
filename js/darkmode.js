@@ -1,7 +1,4 @@
-/**
- * Dark Mode Functionality
- * Handles dark mode toggle and preference storage for all pages
- */
+
 document.addEventListener('DOMContentLoaded', function() {
     const darkModeToggle = document.querySelector('.dark-mode-toggle');
     const body = document.body;

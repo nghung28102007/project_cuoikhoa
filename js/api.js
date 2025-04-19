@@ -193,11 +193,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendarEvents = document.getElementById('calendar-events');
     
     // Sample calendar data (in a real app, this would come from an API)
-    const events = [
-        { teams: 'Việt Nam vs Thái Lan', time: '19:30', date: '15/06/2023', location: 'Mỹ Đình, Hà Nội' },
-        { teams: 'Hà Nội FC vs HAGL', time: '18:00', date: '18/06/2023', location: 'Hàng Đẫy, Hà Nội' },
-        { teams: 'TPHCM vs Viettel', time: '19:00', date: '20/06/2023', location: 'Thống Nhất, TP.HCM' }
-    ];
+    // const events = [
+    //     { teams: 'Việt Nam vs Thái Lan', time: '19:30', date: '15/06/2023', location: 'Mỹ Đình, Hà Nội' },
+    //     { teams: 'Hà Nội FC vs HAGL', time: '18:00', date: '18/06/2023', location: 'Hàng Đẫy, Hà Nội' },
+    //     { teams: 'TPHCM vs Viettel', time: '19:00', date: '20/06/2023', location: 'Thống Nhất, TP.HCM' }
+    // ];
     
     if (calendarEvents) {
         let eventsHTML = '';
