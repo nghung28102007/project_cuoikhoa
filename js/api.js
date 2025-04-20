@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Fallback weather data in case API fails
     const fallbackWeatherData = {
-        'Bắc Ninh': { temp: 28, condition: 'Nắng nhẹ', humidity: 75, wind: 12 },
+        'Bắc Ninh': { temp: 36, condition: 'Nắng nhẹ', humidity: 75, wind: 12 },
         'Hồ Chí Minh': { temp: 32, condition: 'Nắng nóng', humidity: 70, wind: 8 },
         'Đà Nẵng': { temp: 30, condition: 'Có mây', humidity: 65, wind: 15 },
         'Huế': { temp: 29, condition: 'Mưa nhẹ', humidity: 80, wind: 10 },
